@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <algorithm>
 #include <vector>
+#include <functional>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 

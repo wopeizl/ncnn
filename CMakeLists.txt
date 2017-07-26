@@ -15,6 +15,17 @@ message(STATUS "CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}")
 project(ncnn)
 
 cmake_minimum_required(VERSION 2.8.10)
+if(MSVC)
+    #set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "c:/Users/Administrator/.caffe/dependencies/libraries_v140_x64_py27_1.1.0/libraries/")
+    include("c:/Users/Administrator/.caffe/dependencies/libraries_v140_x64_py27_1.1.0/libraries/caffe-builder-config.cmake")
+      find_package( Protobuf REQUIRED NO_MODULE)
+      include_directories(${PROTOBUF_INCLUDE_DIRS})
+      #    target_link_libraries(${PROJECT_NAME} ${PROTOBUF_LIBRARIES})
+else()
+    add_definitions(-Wall -Wextra)
+    add_definitions(-fPIC)
+    add_definitions(-Ofast)
+endif()
 
 # set(CMAKE_BUILD_TYPE debug)
 # set(CMAKE_BUILD_TYPE relwithdebinfo)
@@ -31,10 +42,6 @@ if(NCNN_OPENMP)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
 
-add_definitions(-Wall -Wextra)
-
-add_definitions(-fPIC)
-add_definitions(-Ofast)
 
 add_definitions(-ffast-math)
 # add_definitions(-march=native)
@@ -55,7 +62,9 @@ endif()
 
 ##############################################
 
-# add_subdirectory(examples)
+if(MSVC)
+    add_subdirectory(examples)
+endif()
 add_subdirectory(src)
 if(NOT ANDROID AND NOT IOS)
 add_subdirectory(tools)

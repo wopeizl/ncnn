@@ -1,0 +1,14 @@
+ build a x86 app
+1. install the sdk and ndk
+2. mkdir ncnn/build && cd build
+3. export ANDROID_NDK=/data/pzl/android/android-ndk-r12b
+4. cmake -DCMAKE_TOOLCHAIN_FILE=../android.toolchain.cmake -DANDROID_ABI="x86" -DANDROID_NATIVE_API_LEVEL=android-9 -DANDROID_FORCE_ARM_BUILD=OFF -DANDROID_STL_FORCE_FEATURES=OFF ..
+5. make install
+6. cd ncnn/examples/squeezencnn and modify the jni/Application.mk as APP_ABI := x86
+  and modify the jni/Android.mk as NCNN_INSTALL_PATH := /data/pzl/ncnn/build/install
+7. /data/pzl/android/android-ndk-r12b/ndk-build 
+8. ant debug then you get the bin/squeezencnn-debug.apk
+
+
+ windows build
+1. mkdir ncnn/build && cd build && cmake .. && msbuild ncnn.sln
